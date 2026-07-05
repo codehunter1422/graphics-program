@@ -4,28 +4,81 @@
 
 using namespace std;
 
+void visual();
+void pages();
 void light_post(int x_pos, int y_pos);
 void fill_color(int x_pos, int y_pos, int fill_color, int border_color);
 void road(int x_pos, int y_pos, int len);
 void car(int x, int y);
+void human(int x, int y);
 
 int main()
 {
     initwindow(1200, 800, "Traffic Light");
 
-    // light
-    light_post(900, 50);
-
-    // road
-    road(10, 500, 1000);
-
-    // car
-    car(20, 550);
+    // visual();
+    pages();
 
     getchar();
     closegraph();
 
     return 0;
+}
+
+void visual()
+{
+    for (int i = 0; i < 1000; i++)
+    {
+        cleardevice();
+
+        // light
+        light_post(900, 50);
+
+        // road
+        road(10, 400, 1200);
+
+        // car
+        car(20 + i, 550);
+
+        // human
+        human(600, 550);
+
+        // delay
+        delay(10);
+    }
+}
+
+void pages()
+{
+    int page = 0;
+
+    for (int i = 0; i < 1000; i++)
+    {
+        setactivepage(page);
+        cleardevice();
+
+        // light signal
+        light_post(900, 50);
+
+        // road
+        road(10, 400, 1200);
+
+        // car
+        car(20 + i, 550);
+
+        // human
+        int y;
+        if (i <= 500)
+        {
+            y = 340 + i / 2;
+        }
+        human(600, y);
+
+        setvisualpage(page);
+        page = 1 - page; // Switch between page 0 and 1
+
+        delay(10);
+    }
 }
 
 void light_post(int x_pos, int y_pos)
@@ -99,4 +152,20 @@ void car(int x, int y)
     // Wheels
     circle(x + 20, y + 20, 8);
     circle(x + 60, y + 20, 8);
+}
+
+void human(int x, int y)
+{
+    // Head
+    circle(x, y, 10);
+
+    // Body
+    line(x, y + 10, x, y + 40);
+
+    // Arms
+    line(x - 15, y + 25, x + 15, y + 25);
+
+    // Legs
+    line(x, y + 40, x - 10, y + 60);
+    line(x, y + 40, x + 10, y + 60);
 }
