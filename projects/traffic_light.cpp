@@ -169,3 +169,7 @@ void human(int x, int y)
     line(x, y + 40, x - 10, y + 60);
     line(x, y + 40, x + 10, y + 60);
 }
+
+void movement()
+{
+}
